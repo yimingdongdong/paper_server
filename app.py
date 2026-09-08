@@ -343,6 +343,46 @@ def markdown_to_plain(markdown: str) -> str:
         lines.append(line)
     return "\n".join(lines).strip()
 
+def url_to_short_ref(url: str) -> str:
+    """把论文 URL 转成 Qmsg 不拦截的短编号/DOI，能不放完整链接就不放。"""
+    if not url:
+        return ""
+    url = url.strip().rstrip(".,;)]}")
+    low = url.lower()
+    m = None
+    if "arxiv.org/abs/" in low or "arxiv.org/pdf/" in low:
+        m = re.search(r"(?:abs|pdf)/([0-9]+\.[0-9]+(?:v[0-9]+)?)", url, re.I)
+        if m:
+            return f"arXiv:{m.group(1)}"
+    if "doi.org/" in low:
+        doi = url.split("doi.org/", 1)[1].split("?")[0]
+        return f"DOI:{doi}"
+    if "nature.com/articles/" in low:
+        return "Nature ID:" + url.split("/articles/", 1)[1].split("?")[0]
+    last = url.rstrip("/").split("/")[-1].split("?")[0]
+    if last and len(last) <= 80 and re.fullmatch(r"[A-Za-z0-9._:-]+", last):
+        return "ID:" + last
+    return ""
+
+
+def qmsg_plain_text(markdown: str) -> str:
+    """Qmsg 会拦截带完整 URL/域名的消息，这里转成纯文本并去掉 URL。"""
+    def replace_link(match):
+        text = match.group(1)
+        url = match.group(2)
+        ref = url_to_short_ref(url)
+        return f"{text} ({ref})" if ref else text
+
+    def replace_raw_url(match):
+        return url_to_short_ref(match.group(0)) or ""
+
+    text = re.sub(r"\[([^\]]+)\]\(([^)]+)\)", replace_link, markdown)
+    text = re.sub(r"https?://[^\s)]+", replace_raw_url, text)
+    text = re.sub(r"www\.[^\s)]+", "", text)
+    text = re.sub(r"\b(?:[a-zA-Z0-9-]+\.)+(?:com|org|cn|net|io|edu)(?:/[^\s)]*)?", "", text)
+    return markdown_to_plain(text)
+
+
 
 def send_wechat(title: str, content: str) -> bool:
     push_type = (
@@ -375,7 +415,7 @@ def send_wechat(title: str, content: str) -> bool:
         if not qq:
             log("QMSG_QQ is empty")
             return False
-        plain_text = markdown_to_plain(content)
+        plain_text = qmsg_plain_text(content)
         msg = f"{title}\n\n{plain_text}"[:1000]
         url = f"https://qmsg.zendee.cn/v3/send/{key}"
         data = {"msg": msg, "qq": qq}
