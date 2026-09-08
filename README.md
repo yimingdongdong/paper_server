@@ -55,7 +55,7 @@
 
 ## 部署到 GitHub（推荐，电脑可关机）
 
-假设你的 GitHub 用户名是 `yimingdongodng`，仓库名 `ai-bio-daily-digest`。
+假设你的 GitHub 用户名是 `yimingdongdong`，仓库名 `ai-bio-daily-digest`。
 
 ### 1. 在 GitHub 建仓库并上传
 
@@ -63,7 +63,7 @@
 
 ```bash
 cd ai-bio-daily-digest
-gh repo create yimingdongodng/ai-bio-daily-digest --public --source=. --remote=origin --push
+gh repo create yimingdongdong/ai-bio-daily-digest --public --source=. --remote=origin --push
 ```
 
 或者手动：
@@ -74,14 +74,14 @@ git init
 git add .
 git commit -m "init: AI for Biology daily digest agent"
 git branch -M main
-git remote add origin git@github.com:yimingdongodng/ai-bio-daily-digest.git
+git remote add origin git@github.com:yimingdongdong/ai-bio-daily-digest.git
 git push -u origin main
 ```
 
 ### 2. 添加 GitHub Secrets
 
 打开仓库：
-`https://github.com/yimingdongodng/ai-bio-daily-digest/settings/secrets/actions`
+`https://github.com/yimingdongdong/ai-bio-daily-digest/settings/secrets/actions`
 
 添加以下 Secrets（按你选定的推送方式）：
 
