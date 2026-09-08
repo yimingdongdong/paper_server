@@ -16,6 +16,7 @@ import json
 import os
 import re
 import sys
+import time
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from typing import Any, Optional
@@ -383,6 +384,40 @@ def qmsg_plain_text(markdown: str) -> str:
     return markdown_to_plain(text)
 
 
+def split_qmsg_messages(full_text: str, max_len: int = 1000) -> list:
+    """把长文本拆成适合 Qmsg 的多个片段（每条 <= max_len）。"""
+    if len(full_text) <= max_len:
+        return [full_text]
+    lines = full_text.splitlines()
+    chunks = []
+    current = ""
+    for line in lines:
+        if not current:
+            current = line
+            continue
+        if len(current) + 1 + len(line) <= max_len:
+            current += "\n" + line
+        else:
+            chunks.append(current)
+            # 单行过长时再硬切
+            while len(line) > max_len:
+                chunks.append(line[:max_len])
+                line = line[max_len:]
+            current = line
+    if current:
+        chunks.append(current)
+    return chunks
+
+
+def send_qmsg_text(key: str, qq: str, text: str) -> bool:
+    """发送一条 Qmsg 消息，返回是否成功。"""
+    url = f"https://qmsg.zendee.cn/v3/send/{key}"
+    resp = requests.post(url, data={"msg": text, "qq": qq}, timeout=30)
+    resp.raise_for_status()
+    data = resp.json()
+    return data.get("success") is True or data.get("code") in (0, "0")
+
+
 
 def send_wechat(title: str, content: str) -> bool:
     push_type = (
@@ -416,14 +451,23 @@ def send_wechat(title: str, content: str) -> bool:
             log("QMSG_QQ is empty")
             return False
         plain_text = qmsg_plain_text(content)
-        msg = f"{title}\n\n{plain_text}"[:1000]
-        url = f"https://qmsg.zendee.cn/v3/send/{key}"
-        data = {"msg": msg, "qq": qq}
-        resp = requests.post(url, data=data, timeout=30)
-        resp.raise_for_status()
-        ok = resp.json().get("success") is True or resp.json().get("code") in (0, "0")
-        log(f"Qmsg酱 QQ push {'ok' if ok else resp.text[:200]}")
-        return ok
+        full_text = f"{title}\n\n{plain_text}"
+        messages = split_qmsg_messages(full_text, max_len=1000)
+        ok_all = True
+        for idx, msg in enumerate(messages, 1):
+            # 超过一条时加一个简单序号，避免混淆
+            if len(messages) > 1:
+                msg = f"[{idx}/{len(messages)}]\n{msg}"[:1000]
+            ok = send_qmsg_text(key, qq, msg)
+            if not ok:
+                ok_all = False
+                log(f"Qmsg酱 QQ push failed part {idx}: {msg[:80]}")
+                break
+            log(f"Qmsg酱 QQ push ok ({idx}/{len(messages)})")
+            if idx < len(messages):
+                # Qmsg 限流：同一 Key 每 3 秒最多一次
+                time.sleep(3.2)
+        return ok_all
 
 
     if push_type == "wecom":
