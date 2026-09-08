@@ -58,11 +58,11 @@ sources:
 
   - name: "Science"
     type: rss
-    url: "https://www.science.org/rss/journal/science.xml"
+    url: "https://www.science.org/action/showFeed?type=etoc&feed=rss&jc=science"
 
   - name: "Cell"
     type: rss
-    url: "https://www.cell.com/cell/rss"
+    url: "https://www.cell.com/cell/current.rss"
 
 # DeepSeek prompt config
 llm:
