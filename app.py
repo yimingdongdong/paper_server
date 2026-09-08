@@ -292,6 +292,16 @@ def sort_items(items: list) -> list:
         return date
     return sorted(items, key=keyfunc, reverse=True)
 
+def select_llm_candidates(items: list, cfg: dict) -> list:
+    """避免 DeepSeek 只看到 arXiv：优先保留非 arXiv 来源，再补 arXiv。"""
+    max_n = int(cfg.get("max_items_before_llm", 80))
+    non_arxiv = [item for item in items if item.get("source") != "arXiv"]
+    arxiv = [item for item in items if item.get("source") == "arXiv"]
+    if len(non_arxiv) >= max_n:
+        return sort_items(non_arxiv)[:max_n]
+    return sort_items(non_arxiv) + sort_items(arxiv)[:max_n - len(non_arxiv)]
+
+
 
 def build_candidate_block(items: list) -> str:
     lines = []
@@ -593,7 +603,7 @@ def main() -> int:
 
     llm_result = None
     if not args.no_llm:
-        candidates = new_items[: int(cfg.get("max_items_before_llm", 40))]
+        candidates = select_llm_candidates(new_items, cfg)
         llm_result = call_deepseek(cfg, candidates)
 
     report = build_report(new_items, cfg, llm_result)
