@@ -27,9 +27,18 @@ jobs:
           DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
           DEEPSEEK_BASE_URL: ${{ secrets.DEEPSEEK_BASE_URL }}
           DEEPSEEK_MODEL: ${{ secrets.DEEPSEEK_MODEL }}
+          # 新配置：qmsg / serverchan / wecom / pushplus / none
+          PUSH_TYPE: ${{ secrets.PUSH_TYPE }}
+          # 兼容旧的 WECHAT_PUSH_TYPE（可选）
           WECHAT_PUSH_TYPE: ${{ secrets.WECHAT_PUSH_TYPE }}
+          # QQ Qmsg酱
+          QMSG_KEY: ${{ secrets.QMSG_KEY }}
+          QMSG_QQ: ${{ secrets.QMSG_QQ }}
+          # Server酱
           SERVERCHAN_SENDKEY: ${{ secrets.SERVERCHAN_SENDKEY }}
+          # 企业微信机器人
           WECOM_WEBHOOK_URL: ${{ secrets.WECOM_WEBHOOK_URL }}
+          # PushPlus
           PUSHPLUS_TOKEN: ${{ secrets.PUSHPLUS_TOKEN }}
           STATE_FILE: state.json
         run: python app.py

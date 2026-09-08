@@ -330,10 +330,26 @@ def build_report(items: list, cfg: dict, llm_result: Optional[str]) -> str:
     return header + build_fallback_report(items, cfg)
 
 
+def markdown_to_plain(markdown: str) -> str:
+    """QQ 不渲染 Markdown，简单转成纯文本再发送。"""
+    lines = []
+    for line in markdown.splitlines():
+        line = re.sub(r"^#{1,6}\s*", "", line)
+        line = re.sub(r"\*\*(.+?)\*\*", r"\1", line)
+        line = re.sub(r"\*(.+?)\*", r"\1", line)
+        line = re.sub(r"\[([^\]]+)\]\(([^)]+)\)", r"\1 (\2)", line)
+        lines.append(line)
+    return "\n".join(lines).strip()
+
+
 def send_wechat(title: str, content: str) -> bool:
-    push_type = os.getenv("WECHAT_PUSH_TYPE", "").strip().lower() or "none"
+    push_type = (
+        os.getenv("PUSH_TYPE", "").strip().lower()
+        or os.getenv("WECHAT_PUSH_TYPE", "").strip().lower()
+        or "none"
+    )
     if push_type == "none" or not push_type:
-        log("未配置 WECHAT_PUSH_TYPE；不会标记已读。请用 --dry-run 查看，或设置 serverchan/wecom/pushplus")
+        log("未配置 PUSH_TYPE/WECHAT_PUSH_TYPE；不会标记已读。请用 --dry-run 查看，或设置 serverchan/qmsg/wecom/pushplus")
         return False
 
     if push_type == "serverchan":
@@ -347,6 +363,26 @@ def send_wechat(title: str, content: str) -> bool:
         ok = resp.json().get("code") in (0, "0")
         log(f"ServerChan push {'ok' if ok else resp.text[:200]}")
         return ok
+
+    if push_type == "qmsg":
+        key = os.getenv("QMSG_KEY", "").strip()
+        qq = os.getenv("QMSG_QQ", "").strip()
+        if not key:
+            log("QMSG_KEY is empty")
+            return False
+        if not qq:
+            log("QMSG_QQ is empty")
+            return False
+        plain_text = markdown_to_plain(content)
+        msg = f"{title}\n\n{plain_text}"[:1000]
+        url = f"https://qmsg.zendee.cn/v3/send/{key}"
+        data = {"msg": msg, "qq": qq}
+        resp = requests.post(url, data=data, timeout=30)
+        resp.raise_for_status()
+        ok = resp.json().get("success") is True or resp.json().get("code") in (0, "0")
+        log(f"Qmsg酱 QQ push {'ok' if ok else resp.text[:200]}")
+        return ok
+
 
     if push_type == "wecom":
         webhook = os.getenv("WECOM_WEBHOOK_URL", "").strip()
@@ -373,7 +409,7 @@ def send_wechat(title: str, content: str) -> bool:
         log(f"PushPlus push {'ok' if ok else resp.text[:200]}")
         return ok
 
-    log(f"Unsupported WECHAT_PUSH_TYPE: {push_type}")
+    log(f"Unsupported PUSH_TYPE: {push_type}")
     return False
 
 
