@@ -23,8 +23,10 @@ from typing import Any, Optional
 import feedparser
 import requests
 import yaml
+from dotenv import load_dotenv
 
 ROOT = Path(__file__).resolve().parent
+load_dotenv(ROOT / ".env")
 DEFAULT_CONFIG = ROOT / "config.yaml"
 DEFAULT_STATE = ROOT / "state.json"
 USER_AGENT = "Mozilla/5.0 (compatible; DailyAIBioDigest/1.0)"
