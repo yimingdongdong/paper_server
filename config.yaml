@@ -18,18 +18,62 @@ keywords:
   - "foundation model"
   - "generative model"
   - "generative ai"
+  - "diffusion model"
+  - "molecular generation"
+  - "molecular design"
+  - "geometric deep learning"
+  - "geometric"
+  - "equivariant"
+  - "graph neural network"
+  - "graph neural"
+  - "deep learning"
+  - "machine learning"
+  - "drug design"
+  - "drug discovery"
+  - "ai for drug"
+  - "virtual screening"
   - "antibody"
   - "antibody design"
   - "de novo protein"
-  - "drug discovery"
+  - "structure prediction"
+  - "alphafold"
+
+# 重点关注的研究者：这些人一有论文/预印本，必须出现在日报里
+followed_authors:
+  # 在这里填你想关注的人名，例如：
+  # - "Demis Hassabis"
+  # - "John Jumper"
+  # - "Marinka Zitnik"
+  # - "Max Welling"
+  - ""
+
+# 是否过滤掉“纯实验类”论文（没有 AI/计算/设计方法的内容）
+exclude_experimental: true
+
+# 实验类论文的典型信号词，可自行增删
+experimental_terms:
+  - "clinical trial"
+  - "in vivo"
+  - "in vitro"
+  - "mouse model"
+  - "patient"
+  - "cell line"
+  - "breast cancer"
+  - "cell cycle"
+  - "proteome"
+  - "tumor"
+  - "cancer"
+  - "knockout"
+  - "cryo-em"
+  - "x-ray crystallography"
 
 # After keyword filtering, max number of candidates sent to DeepSeek
-max_items_before_llm: 40
+max_items_before_llm: 80
 # Max number kept in final digest
-max_items_final: 12
+max_items_final: 20
 
 # Only fetch items from last N days
-lookback_days: 3
+lookback_days: 7
 
 # Whether to enable first-pass keyword filtering
 use_rule_filter: true
@@ -41,8 +85,8 @@ digest_name: "AI x Bio 每日情报"
 sources:
   - name: "arXiv"
     type: arxiv
-    query: 'cat:q-bio.BM OR cat:q-bio.QM OR cat:q-bio.GN OR cat:q-bio.SC OR cat:cs.LG OR cat:cs.AI OR cat:cs.CL OR cat:cs.NE'
-    max_results: 100
+    query: 'cat:q-bio.BM OR cat:q-bio.QM OR cat:q-bio.GN OR cat:q-bio.SC OR cat:q-bio.CB OR cat:q-bio.MN OR cat:cs.LG OR cat:cs.AI OR cat:cs.CL OR cat:cs.NE'
+    max_results: 200
 
   - name: "Nature Machine Intelligence"
     type: rss
@@ -71,19 +115,27 @@ llm:
   max_tokens: 2000
   temperature: 0.2
   system_prompt: |
-    你是一位严谨的科研情报助手，服务于一位从事“AI for Biology / 蛋白质 / 多肽 / 大语言模型 / 生成模型 / 抗体设计 / 药物发现”研究的学者。
-    你的任务是从候选论文与资讯中筛选出真正重要且相关的内容，并用中文给出简洁、专业、不夸大的点评。
+    你是一位科研情报助手，服务于一位重点关注“AI for Drug Design / AI for Biology / 蛋白质与多肽设计 / 蛋白质语言模型 / 生成模型 / 大语言模型 / 几何深度学习”的学者。
+    你的任务是扩大视野，推荐各类 AI/计算方法论文，不要只盯着实验生物学。请用中文给出简洁、专业、不夸大的点评。
   user_prompt: |
-    请从下面的候选列表中筛选与“AI for biology、蛋白质/多肽设计、蛋白质语言模型、大语言模型、生成模型、抗体设计、药物发现”相关的内容。
+    请从下面的候选列表中选出与以下方向相关的论文/资讯：
+    - AI for Drug Design、药物发现、虚拟筛选、分子生成（最重要）
+    - 生成模型、扩散模型、生成式 AI
+    - 大语言模型 / LLM / 语言模型，包括其在生物/化学/蛋白质中的应用
+    - 几何深度学习、图神经网络、等变网络、蛋白质结构表示
+    - 蛋白质 / 多肽 / 抗体设计、蛋白质语言模型、结构预测、AlphaFold
+    - AI for Biology、机器学习在生物医学中的应用
+
     规则：
-    1. 只剔除明显无关的内容；只要与上述领域沾边就尽量保留，宁多勿缺。
-    2. 如果候选列表里有多条相关，请全部列出；最多保留 {max_items_final} 条，并按重要度排序。
-    3. 输出 Markdown 格式，不要输出额外解释，格式为：
+    1. 宁多勿缺，只要与上面任一方向沾边就尽量保留，不要只选“高度相关”的一两条。
+    2. 纯实验生物学/医学论文（没有 AI/计算方法）尽量少选；如果候选里没有足够的 AI/计算方法论文，再考虑保留少量实验背景。
+    3. 如果候选列表里有多条相关，请全部列出；最多保留 {max_items_final} 条，并按“AI for Drug Design > 生成模型/LLM/几何深度学习 > 其他 AI for Biology”的重要度排序。
+    4. 输出 Markdown 格式，不要输出额外解释，格式为：
        ## 今日重点
        ### 1. [来源] 标题
        **一句话点评**：...
        原文：URL
-    4. 如果没有值得推荐的条目，只输出“今日没有特别值得关注的新内容。”
+    5. 如果确实没有相关内容，只输出“今日没有特别值得关注的新内容。”
 
     候选列表：
     {items}

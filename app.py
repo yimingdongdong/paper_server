@@ -90,6 +90,20 @@ def parse_date(entry: Any) -> Optional[datetime]:
             pass
     return None
 
+def extract_authors(entry: Any) -> list:
+    authors = []
+    for author in entry.get("authors", []):
+        if isinstance(author, dict):
+            name = str(author.get("name", "") or "").strip()
+        else:
+            name = str(author).strip()
+        if name:
+            authors.append(name)
+    if not authors and entry.get("author"):
+        authors.append(str(entry.get("author")).strip())
+    return authors
+
+
 
 def load_config(path: Path) -> dict:
     if not path.exists():
@@ -141,6 +155,7 @@ def fetch_arxiv(source: dict, cfg: dict, now: datetime) -> list:
             "url": link,
             "summary": summary,
             "date": date,
+            "authors": extract_authors(entry),
         })
     log(f"arXiv fetched {len(items)} items")
     return items
@@ -162,6 +177,7 @@ def fetch_rss(source: dict, cfg: dict, now: datetime) -> list:
             "url": link,
             "summary": summary,
             "date": date,
+            "authors": extract_authors(entry),
         })
     log(f"{source.get('name', url)} fetched {len(items)} items")
     return items
@@ -199,32 +215,71 @@ def rule_relevant(item: dict, cfg: dict) -> bool:
     return False
 
 
-def filter_and_dedupe(all_items: list, cfg: dict, state: dict, now: datetime):
-    new_items = []
-    seen_ids = []
+def is_followed_author(item: dict, cfg: dict) -> bool:
+    followed = [str(a).strip().lower() for a in cfg.get("followed_authors", []) if str(a).strip()]
+    if not followed:
+        return False
+    parts = list(item.get("authors", [])) + [item.get("title", ""), item.get("summary", "")]
+    haystack = " ".join(parts).lower()
+    for name in followed:
+        if name in haystack:
+            return True
+        words = name.split()
+        if len(words) > 1 and len(words[-1]) > 3 and words[-1] in haystack:
+            return True
+    return False
+
+
+AI_TECH_TERMS = [
+    "machine learning", "deep learning", "neural network", "large language model",
+    "language model", "llm", "generative", "diffusion", "geometric deep learning",
+    "graph neural", "equivariant", "protein language model", "foundation model",
+    "drug design", "drug discovery", "molecular generation", "molecular design",
+    "ai for drug", "artificial intelligence", "reinforcement learning",
+    "representation learning", "self-supervised", "molecular docking",
+    "protein design", "peptide design", "antibody design", "virtual screening",
+    "de novo", "structure prediction", "alphafold", "geometric", "deep learning",
+]
+
+EXPERIMENTAL_TERMS = [
+    "clinical trial", "in vivo", "in vitro", "mouse model", "patient",
+    "cell line", "breast cancer", "cell cycle", "proteome", "tumor",
+    "cancer", "knockout", "mutagenesis", "cryo-em", "x-ray crystallography",
+]
+
+
+def is_technical_ai(item: dict) -> bool:
+    text = f"{item.get('title', '')} {item.get('summary', '')}".lower()
+    return any(term in text for term in AI_TECH_TERMS)
+
+
+def is_experimental_only(item: dict, cfg: dict) -> bool:
+    text = f"{item.get('title', '')} {item.get('summary', '')}".lower()
+    exp_terms = cfg.get("experimental_terms") or EXPERIMENTAL_TERMS
+    if not any(str(t).lower() in text for t in exp_terms):
+        return False
+    # 只要有 AI/计算/设计相关词，就不当作“纯实验论文”排除
+    return not is_technical_ai(item)
+
+
+def filter_items(all_items: list, cfg: dict, now: datetime) -> list:
+    """不做去重、不看历史 state：每次手动/定时执行都会重新发送匹配内容。"""
+    selected = []
     for item in all_items:
         if not within_lookback(item, cfg, now):
             continue
+        # 关注的研究者：无条件保留
+        if is_followed_author(item, cfg):
+            selected.append(item)
+            continue
+        # 纯实验类论文：默认降权/过滤，除非配置 exclude_experimental=false
+        if cfg.get("exclude_experimental", True) and is_experimental_only(item, cfg):
+            continue
+        # 关键词规则
         if cfg.get("use_rule_filter", True) and not rule_relevant(item, cfg):
             continue
-        sid = stable_id(item)
-        if sid in state:
-            continue
-        new_items.append(item)
-        seen_ids.append(sid)
-    return new_items, seen_ids
-
-
-def dedupe_in_memory(items: list) -> list:
-    seen = set()
-    out = []
-    for item in items:
-        key = (item.get("url") or item.get("title") or "").strip().lower()
-        if not key or key in seen:
-            continue
-        seen.add(key)
-        out.append(item)
-    return out
+        selected.append(item)
+    return selected
 
 
 def sort_items(items: list) -> list:
@@ -248,11 +303,14 @@ def build_candidate_block(items: list) -> str:
             except Exception:
                 date_str = ""
         summary = item.get("summary", "")[:600]
+        authors = ", ".join(item.get("authors", []) or [])
         lines.append(f"<item {idx}>")
         lines.append(f"Source: {item.get('source')}")
         if date_str:
             lines.append(f"Date: {date_str}")
         lines.append(f"Title: {item.get('title')}")
+        if authors:
+            lines.append(f"Authors: {authors}")
         lines.append(f"Summary: {summary}")
         lines.append(f"URL: {item.get('url')}")
         lines.append("</item>")
@@ -280,6 +338,14 @@ def call_deepseek(cfg: dict, items: list) -> Optional[str]:
         "Filter the candidates below. Keep at most {max_items_final} relevant items. Output Markdown.\n\n{items}",
     )
     user_prompt = user_template.format(max_items_final=max_final, items=build_candidate_block(items))
+    followed = [str(a).strip() for a in cfg.get("followed_authors", []) if str(a).strip()]
+    if followed:
+        user_prompt = (
+            "重点关注以下研究者：如果他们出现在候选中，必须全部保留并优先展示："
+            + "、".join(followed)
+            + "\n\n"
+            + user_prompt
+        )
 
     payload = {
         "model": model,
@@ -508,8 +574,6 @@ def main() -> int:
     args = parser.parse_args()
 
     cfg = load_config(args.config)
-    state_path = args.state or Path(os.getenv("STATE_FILE", str(DEFAULT_STATE)))
-    state = load_state(state_path)
     now = get_now()
 
     log("Fetching sources...")
@@ -518,13 +582,13 @@ def main() -> int:
         log("No items fetched")
         return 0
 
-    new_items, new_ids = filter_and_dedupe(all_items, cfg, state, now)
-    new_items = dedupe_in_memory(new_items)
+    # 不去重、不查历史 state：每次运行都会重新发送符合条件的内容
+    new_items = filter_items(all_items, cfg, now)
     new_items = sort_items(new_items)
-    log(f"New relevant items after filter/dedupe: {len(new_items)}")
+    log(f"Matching items this run: {len(new_items)}")
 
     if not new_items:
-        log("No new relevant content, skip today")
+        log("No matching items in this run, skip sending")
         return 0
 
     llm_result = None
@@ -539,18 +603,15 @@ def main() -> int:
         print("\n" + "=" * 70)
         print(report)
         print("=" * 70)
-        log("dry-run: no push, no state update")
+        log("dry-run: no push")
         return 0
 
     ok = send_wechat(title, report)
     if not ok:
-        log("Push failed, state not updated so it can retry next run")
+        log("Push failed")
         return 1
 
-    for sid in new_ids:
-        state[sid] = now.isoformat()
-    save_state(state_path, state)
-    log(f"State updated with {len(new_ids)} ids")
+    log("Send completed")
     return 0
 
 
