@@ -485,21 +485,26 @@ def split_qmsg_messages(full_text: str, max_len: int = 1000) -> list:
     return chunks
 
 
-def send_qmsg_text(key: str, qq: str, text: str) -> bool:
-    """发送一条 Qmsg 消息，返回是否成功。"""
+def send_qmsg_text(key: str, qq: str, text: str, retries: int = 3) -> bool:
+    """发送一条 Qmsg 消息，遇到频率限制自动重试。"""
     url = f"https://qmsg.zendee.cn/v3/send/{key}"
-    resp = requests.post(url, data={"msg": text, "qq": qq}, timeout=30)
-    try:
-        data = resp.json()
-    except Exception:
-        data = {}
-    if resp.status_code >= 400:
-        log(f"Qmsg HTTP {resp.status_code}: {resp.text[:300]}")
-        return False
-    ok = data.get("success") is True or data.get("code") in (0, "0")
-    if not ok:
-        log(f"Qmsg API error: {resp.text[:300]}")
-    return ok
+    for attempt in range(1, retries + 1):
+        resp = requests.post(url, data={"msg": text, "qq": qq}, timeout=30)
+        try:
+            data = resp.json()
+        except Exception:
+            data = {}
+        if resp.status_code >= 400:
+            log(f"Qmsg HTTP {resp.status_code} (attempt {attempt}/{retries}): {resp.text[:300]}")
+            if "频率" in resp.text and attempt < retries:
+                time.sleep(6)
+                continue
+            return False
+        ok = data.get("success") is True or data.get("code") in (0, "0")
+        if not ok:
+            log(f"Qmsg API error: {resp.text[:300]}")
+        return ok
+    return False
 
 
 
@@ -550,7 +555,8 @@ def send_wechat(title: str, content: str) -> bool:
             log(f"Qmsg酱 QQ push ok ({idx}/{len(messages)})")
             if idx < len(messages):
                 # Qmsg 限流：同一 Key 每 3 秒最多一次
-                time.sleep(3.2)
+                # Qmsg 现在限制同一 Key 每 5 秒最多一次，留一点余量
+                time.sleep(6)
         return ok_all
 
 
