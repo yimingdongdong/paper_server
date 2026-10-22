@@ -206,13 +206,38 @@ def within_lookback(item: dict, cfg: dict, now: datetime) -> bool:
     return now - date <= timedelta(days=days)
 
 
-def rule_relevant(item: dict, cfg: dict) -> bool:
-    text = f"{item['title']} {item['summary']}".lower()
-    for kw in cfg.get("keywords", []):
-        kw = str(kw).strip().lower()
-        if kw and kw in text:
+def _has_any(text: str, terms: list) -> bool:
+    for term in terms:
+        term = str(term).strip().lower()
+        if term and term in text:
             return True
     return False
+
+
+def rule_relevant(item: dict, cfg: dict) -> bool:
+    """领域词 + 方法词双命中，或命中重点方法词。"""
+    text = f"{item.get('title', '')} {item.get('summary', '')}".lower()
+
+    exclude_terms = cfg.get("exclude_keywords", [])
+    if _has_any(text, exclude_terms):
+        return False
+
+    domain_terms = cfg.get("domain_keywords") or cfg.get("keywords", [])
+    method_terms = cfg.get("method_keywords", [])
+    method_only_terms = cfg.get(
+        "method_only_keywords",
+        ["flow matching", "diffusion model", "diffusion", "score-based", "normalizing flow"],
+    )
+
+    has_domain = _has_any(text, domain_terms)
+    has_method = _has_any(text, method_terms)
+    has_method_only = _has_any(text, method_only_terms)
+
+    # flow matching / diffusion 这类技术迭代，即使没有生物领域词也保留
+    if has_method_only:
+        return True
+    # 其他条目必须同时命中“生物/药物领域词”和“AI/计算方法词”
+    return has_domain and has_method
 
 
 def is_followed_author(item: dict, cfg: dict) -> bool:

@@ -1,42 +1,91 @@
 # ===== Daily research intelligence config =====
 
-# Your research interests (used for first-pass keyword filtering)
-keywords:
-  - "ai for biology"
-  - "ai for science"
-  - "artificial intelligence for biology"
-  - "biology"
+# 领域词：命中这些表示与你的研究对象相关
+domain_keywords:
   - "peptide"
   - "peptide design"
   - "protein"
   - "protein design"
   - "protein language model"
-  - "large language model"
-  - "large language models"
-  - "llm"
-  - "language model"
-  - "foundation model"
-  - "generative model"
-  - "generative ai"
-  - "diffusion model"
-  - "molecular generation"
-  - "molecular design"
-  - "geometric deep learning"
-  - "geometric"
-  - "equivariant"
-  - "graph neural network"
-  - "graph neural"
-  - "deep learning"
-  - "machine learning"
-  - "drug design"
-  - "drug discovery"
-  - "ai for drug"
-  - "virtual screening"
   - "antibody"
-  - "antibody design"
+  - "nanobody"
+  - "small molecule"
+  - "molecule"
+  - "molecular"
+  - "drug"
+  - "ligand"
+  - "binding affinity"
+  - "molecular docking"
+  - "docking"
+  - "admet"
+  - "virtual screening"
+  - "virtual cell"
+  - "cell simulation"
+  - "single-cell"
+  - "cellular"
+  - "perturbation"
+  - "gene expression"
+  - "protein-protein interaction"
+  - "epitope"
+  - "binder"
+  - "structure prediction"
   - "de novo protein"
+
+# 方法词：和领域词同时命中才保留
+method_keywords:
+  - "machine learning"
+  - "deep learning"
+  - "neural network"
+  - "transformer"
+  - "language model"
+  - "llm"
+  - "generative"
+  - "flow matching"
+  - "diffusion"
+  - "score-based"
+  - "normalizing flow"
+  - "rectified flow"
+  - "graph neural"
+  - "geometric deep learning"
+  - "equivariant"
+  - "representation learning"
+  - "self-supervised"
+  - "reinforcement learning"
+  - "variational autoencoder"
+  - "vae"
+  - "gan"
   - "structure prediction"
   - "alphafold"
+  - "docking"
+  - "virtual screening"
+
+# 方法重点词：即使没有生物领域词，也保留这些技术迭代
+method_only_keywords:
+  - "flow matching"
+  - "diffusion model"
+  - "diffusion"
+  - "score-based"
+  - "normalizing flow"
+  - "rectified flow"
+
+# 明显不相关的内容，直接排除
+exclude_keywords:
+  - "medical image"
+  - "medical imaging"
+  - "mri"
+  - "ct scan"
+  - "chest radiograph"
+  - "wearable"
+  - "clinical"
+  - "diagnosis"
+  - "patient"
+  - "electronic health record"
+  - "ehr"
+  - "hospital"
+  - "healthcare"
+  - "alzheimer"
+  - "cardiovascular"
+  - "federated learning"
 
 # 重点关注的研究者：这些人一有论文/预印本，必须出现在日报里
 followed_authors:
@@ -70,7 +119,7 @@ experimental_terms:
 # After keyword filtering, max number of candidates sent to DeepSeek
 max_items_before_llm: 80
 # Max number kept in final digest
-max_items_final: 20
+max_items_final: 15
 
 # Only fetch items from last N days
 lookback_days: 7
@@ -115,21 +164,28 @@ llm:
   max_tokens: 2000
   temperature: 0.2
   system_prompt: |
-    你是一位科研情报助手，服务于一位重点关注“AI for Drug Design / AI for Biology / 蛋白质与多肽设计 / 蛋白质语言模型 / 生成模型 / 大语言模型 / 几何深度学习”的学者。
-    你的任务是扩大视野，推荐各类 AI/计算方法论文，不要只盯着实验生物学。请用中文给出简洁、专业、不夸大的点评。
+    你是一位非常挑剔的科研情报助手，只服务于一位研究方向非常明确的学者。
+    他的核心关注点是：多肽、蛋白质、抗体、小分子、药物设计、虚拟细胞，以及 flow matching / diffusion 等生成模型技术迭代。
+    你的任务是只推荐真正属于这些方向的内容，宁缺毋滥；不要用医学影像、临床诊断、可穿戴、泛泛 LLM 研究来凑数。
   user_prompt: |
-    请从下面的候选列表中选出与以下方向相关的论文/资讯：
-    - AI for Drug Design、药物发现、虚拟筛选、分子生成（最重要）
-    - 生成模型、扩散模型、生成式 AI
-    - 大语言模型 / LLM / 语言模型，包括其在生物/化学/蛋白质中的应用
-    - 几何深度学习、图神经网络、等变网络、蛋白质结构表示
-    - 蛋白质 / 多肽 / 抗体设计、蛋白质语言模型、结构预测、AlphaFold
-    - AI for Biology、机器学习在生物医学中的应用
+    请从下面的候选列表中严格筛选，只保留与以下方向直接相关的论文/资讯：
+    1. 多肽 / 蛋白质 / 抗体 / 小分子 / 药物设计 / 虚拟筛选 / 分子生成
+    2. 虚拟细胞、单细胞扰动预测、细胞状态建模、基因表达预测
+    3. 蛋白质语言模型、蛋白质结构预测、binding affinity、docking、ADMET
+    4. flow matching、diffusion model、score-based、normalizing flow、rectified flow 等技术迭代
+    5. 上述方向中使用的几何深度学习、图神经网络、等变网络、生成模型、表示学习
+
+    明确排除：
+    - 医学影像、MRI、CT、胸片、病理图像
+    - 临床诊断、患者数据、可穿戴设备、健康管理、EHR
+    - 泛泛的 LLM 行为研究、LLM 训练技巧、Agent 框架（除非明确用于蛋白/药物/虚拟细胞）
+    - 纯实验生物学/医学论文，没有 AI/计算方法的内容
+    - 与多肽/蛋白/抗体/小分子/虚拟细胞无关的其他 AI 应用
 
     规则：
-    1. 宁多勿缺，只要与上面任一方向沾边就尽量保留，不要只选“高度相关”的一两条。
-    2. 纯实验生物学/医学论文（没有 AI/计算方法）尽量少选；如果候选里没有足够的 AI/计算方法论文，再考虑保留少量实验背景。
-    3. 如果候选列表里有多条相关，请全部列出；最多保留 {max_items_final} 条，并按“AI for Drug Design > 生成模型/LLM/几何深度学习 > 其他 AI for Biology”的重要度排序。
+    1. 宁缺毋滥，不要为了凑数而保留不相关条目。
+    2. 如果候选里有多条真正相关，请全部列出；最多保留 {max_items_final} 条。
+    3. 按重要度排序：药物设计/分子生成 > flow matching/diffusion > 蛋白/多肽/抗体/虚拟细胞 > 其他。
     4. 输出 Markdown 格式，不要输出额外解释，格式为：
        ## 今日重点
        ### 1. [来源] 标题
