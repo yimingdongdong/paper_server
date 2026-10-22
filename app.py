@@ -660,6 +660,9 @@ def main() -> int:
         log("Push failed")
         return 1
 
+    latest_path = ROOT / "latest_digest.md"
+    latest_path.write_text(report, encoding="utf-8")
+    log(f"Latest digest saved to {latest_path}")
     log("Send completed")
     return 0
 

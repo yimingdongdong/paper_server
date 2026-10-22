@@ -43,14 +43,14 @@ jobs:
           STATE_FILE: state.json
         run: python app.py
 
-      - name: Commit seen-state
+      - name: Commit latest digest
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add state.json
+          git add state.json latest_digest.md
           if git diff --cached --quiet; then
-            echo "state.json unchanged"
+            echo "no changes to commit"
           else
-            git commit -m "chore: update daily digest seen state [skip ci]"
+            git commit -m "chore: update latest digest [skip ci]"
             git push
           fi
