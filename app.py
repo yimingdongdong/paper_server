@@ -489,9 +489,17 @@ def send_qmsg_text(key: str, qq: str, text: str) -> bool:
     """发送一条 Qmsg 消息，返回是否成功。"""
     url = f"https://qmsg.zendee.cn/v3/send/{key}"
     resp = requests.post(url, data={"msg": text, "qq": qq}, timeout=30)
-    resp.raise_for_status()
-    data = resp.json()
-    return data.get("success") is True or data.get("code") in (0, "0")
+    try:
+        data = resp.json()
+    except Exception:
+        data = {}
+    if resp.status_code >= 400:
+        log(f"Qmsg HTTP {resp.status_code}: {resp.text[:300]}")
+        return False
+    ok = data.get("success") is True or data.get("code") in (0, "0")
+    if not ok:
+        log(f"Qmsg API error: {resp.text[:300]}")
+    return ok
 
 
 
