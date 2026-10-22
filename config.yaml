@@ -51,6 +51,19 @@ method_keywords:
   - "representation learning"
   - "self-supervised"
   - "reinforcement learning"
+  - "world model"
+  - "jepa"
+  - "joint embedding predictive architecture"
+  - "agent"
+  - "multi-agent"
+  - "reasoning"
+  - "chain-of-thought"
+  - "rlhf"
+  - "dpo"
+  - "post-training"
+  - "instruction tuning"
+  - "fine-tuning"
+  - "distillation"
   - "variational autoencoder"
   - "vae"
   - "gan"
@@ -67,6 +80,23 @@ method_only_keywords:
   - "score-based"
   - "normalizing flow"
   - "rectified flow"
+  - "large language model"
+  - "language model"
+  - "llm"
+  - "agent"
+  - "multi-agent"
+  - "agent framework"
+  - "world model"
+  - "jepa"
+  - "joint embedding predictive architecture"
+  - "reasoning model"
+  - "chain-of-thought"
+  - "rlhf"
+  - "dpo"
+  - "post-training"
+  - "instruction tuning"
+  - "llm training"
+  - "distillation"
 
 # 明显不相关的内容，直接排除
 exclude_keywords:
@@ -164,28 +194,29 @@ llm:
   max_tokens: 2000
   temperature: 0.2
   system_prompt: |
-    你是一位非常挑剔的科研情报助手，只服务于一位研究方向非常明确的学者。
+    你是一位科研情报助手，服务于一位研究方向明确的学者。
     他的核心关注点是：多肽、蛋白质、抗体、小分子、药物设计、虚拟细胞，以及 flow matching / diffusion 等生成模型技术迭代。
-    你的任务是只推荐真正属于这些方向的内容，宁缺毋滥；不要用医学影像、临床诊断、可穿戴、泛泛 LLM 研究来凑数。
+    此外，泛泛的 LLM 行为研究、LLM 训练技巧、Agent 框架、world model、JEPA 也都可以推送，不要因为这些不是生物方向就排除。
+    你的任务是保留真正有信息量的 AI/计算方法论文，同时避免医学影像、临床诊断、可穿戴、纯实验论文等无关内容。
   user_prompt: |
-    请从下面的候选列表中严格筛选，只保留与以下方向直接相关的论文/资讯：
+    请从下面的候选列表中筛选与以下方向相关的论文/资讯：
     1. 多肽 / 蛋白质 / 抗体 / 小分子 / 药物设计 / 虚拟筛选 / 分子生成
     2. 虚拟细胞、单细胞扰动预测、细胞状态建模、基因表达预测
     3. 蛋白质语言模型、蛋白质结构预测、binding affinity、docking、ADMET
     4. flow matching、diffusion model、score-based、normalizing flow、rectified flow 等技术迭代
     5. 上述方向中使用的几何深度学习、图神经网络、等变网络、生成模型、表示学习
+    6. LLM 行为研究、LLM 训练/后训练技巧、Agent / 多智能体框架、world model、JEPA、reasoning model
 
     明确排除：
     - 医学影像、MRI、CT、胸片、病理图像
     - 临床诊断、患者数据、可穿戴设备、健康管理、EHR
-    - 泛泛的 LLM 行为研究、LLM 训练技巧、Agent 框架（除非明确用于蛋白/药物/虚拟细胞）
     - 纯实验生物学/医学论文，没有 AI/计算方法的内容
-    - 与多肽/蛋白/抗体/小分子/虚拟细胞无关的其他 AI 应用
+    - 与上述方向完全无关的其他 AI 应用
 
     规则：
     1. 宁缺毋滥，不要为了凑数而保留不相关条目。
-    2. 如果候选里有多条真正相关，请全部列出；最多保留 {max_items_final} 条。
-    3. 按重要度排序：药物设计/分子生成 > flow matching/diffusion > 蛋白/多肽/抗体/虚拟细胞 > 其他。
+    2. 如果候选里有多条相关，请尽量全部列出；最多保留 {max_items_final} 条。
+    3. 按重要度排序：药物设计/分子生成 > flow matching/diffusion > 蛋白/多肽/抗体/虚拟细胞 > LLM/Agent/world model/JEPA > 其他。
     4. 输出 Markdown 格式，不要输出额外解释，格式为：
        ## 今日重点
        ### 1. [来源] 标题
