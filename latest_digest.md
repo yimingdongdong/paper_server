@@ -1,65 +1,65 @@
 # AI x Bio 每日情报
 
-> 生成时间 2026-11-10 07:54，由 DeepSeek 精筛。
+> 生成时间 2026-11-11 07:23，由 DeepSeek 精筛。
 
 ## 今日重点
 
-### 1. [arXiv] Kolmogorov-Chapman Maps: Trajectory-Free Learning for Simulating Molecular Dynamics
-**一句话点评**：用神经网络直接学习 SDE 的 Kolmogorov-Chapman 半群映射，把百万步分子动力学积分摊销为单次前向，属于生成模型/随机过程与分子模拟交叉的方法迭代，值得关注。
-原文：https://arxiv.org/abs/2611.12880v1
+### 1. [arXiv] Pyrite: Building and Benchmarking Protein-Ligand Pose Ranking Agents
+**一句话点评**：针对共折叠模型生成的多候选构象难以可靠排序这一小分子药物发现核心瓶颈，构建了 1500 对蛋白-配体 pose 配对排序基准，并揭示专家化学家结合 3D 可视化与物理打分也仅接近随机水平，凸显自动化排序的挑战与价值。
+原文：https://arxiv.org/abs/2611.14511v1
 
-### 2. [arXiv] What kills $v$-prediction? A Patch-wise PCA Perspective on Pixel-Space Flow Matching
-**一句话点评**：从 patch-wise PCA 角度解释像素空间 flow matching 中 v-prediction 训练困难的带宽瓶颈，并指向 x-prediction，直接命中 flow matching 技术迭代。
-原文：https://arxiv.org/abs/2611.12852v1
+### 2. [arXiv] Emergent Biological Capabilities in a Foundation Model for Molecular Interactions
+**一句话点评**：Bonbon 在约 3.2 万亿 token 的蛋白-配体配对序列上训练，单一表示空间即零样本涌现出作用机制、结合位点定位（含正/别构区分）与共价/非共价键判断等分层能力，是分子相互作用基础模型的重要进展。
+原文：https://arxiv.org/abs/2611.14504v1
 
-### 3. [arXiv] stMIND: Learning multiscale interaction dynamics from spatial-temporal transcriptomics
-**一句话点评**：基于 interacting mean-field neural SDE 框架，从时空转录组学习多尺度细胞邻域相互作用与状态转移，属于虚拟细胞/细胞状态建模方向。
-原文：https://arxiv.org/abs/2611.12228v1
+### 3. [arXiv] ANTIOCH-VS: From Sequence to Hits with Modular, Open-Source Ensemble Virtual Screening
+**一句话点评**：开源端到端虚拟筛选框架，从蛋白序列出发，用 reduced-MSA 子采样构建构象集合、AF2-RAVE 短 MD 采样结合 competent 态，再集成筛选输出候选结合物排序，直击无配体晶体结构靶点的筛选难题。
+原文：https://arxiv.org/abs/2611.14287v1
 
-### 4. [arXiv] The balance between feature learning and collapse in dynamical systems-based generative models
-**一句话点评**：从学习理论角度分析 normalizing flow / diffusion 等连续时间生成模型的特征学习与 mode collapse 隐式偏置，属于生成模型理论迭代。
-原文：https://arxiv.org/abs/2611.12156v1
+### 4. [arXiv] Forward-Value Discretization: Faster Stochastic Diffusion Sampling Without High-Order Approximation
+**一句话点评**：证明随机扩散采样器即便用高阶近似仍只有一阶收敛（给出匹配上下界），据此提出前向值离散化以更少 NFE 达到可比采样质量，是对 diffusion 采样理论的重要修正。
+原文：https://arxiv.org/abs/2611.14328v1
 
-### 5. [arXiv] Two-Phase Rapid Simulation-Based Inference with Differentiable Simulators
-**一句话点评**：基于 Schrödinger Bridge 扩散采样的变分推断方法，用可微模拟器提供代理似然实现高效 one-shot 后验采样，属 diffusion/score-based 方法迭代。
-原文：https://arxiv.org/abs/2611.12422v1
+### 5. [arXiv] An Energy-Based Perspective on Machine Learning
+**一句话点评**：以能量模型为统一视角串联表示、采样/推理与学习三要素的教程，对理解 score-based / diffusion 与生成建模的理论根基有参考价值。
+原文：https://arxiv.org/abs/2611.14383v1
 
-### 6. [arXiv] SciMARS: Multi-Agent Recursive Self-Improvement for Closed-Loop Scientific Discovery
-**一句话点评**：面向闭环科学发现的多智能体递归自改进框架，用共享证据图与组件编辑器协调角色，属 Agent/多智能体框架方向。
-原文：https://arxiv.org/abs/2611.12552v1
+### 6. [arXiv] Blurring the Block Boundaries: Overlapping Block Denoising for Efficient Diffusion Language Models
+**一句话点评**：针对块扩散语言模型中“块内最慢 token 拖累、块间串行”的效率瓶颈，提出两块并行去噪的 B3 方法，属于 diffusion 生成技术迭代。
+原文：https://arxiv.org/abs/2611.14387v1
 
-### 7. [arXiv] WanderBench: Can World Models Explore Dynamic Worlds from Video?
-**一句话点评**：针对视频条件世界模型探索动态场景的基准，评估主体一致性、事件推进与场景一致性，属 world model 方向。
-原文：https://arxiv.org/abs/2611.12557v1
+### 7. [arXiv] BioXArena-Pro: a research-grade benchmark for autonomous biomedical machine learning agents
+**一句话点评**：64 个来自八个生物医学领域、重建自已发表研究的研究级建模任务，多数留出整类生物单元（物种/队列）以防泄漏，评估自主生物医学建模 Agent，最佳配置仅 55.1/100，且 scaffold 影响几乎与模型相当。
+原文：https://arxiv.org/abs/2611.13994v1
 
-### 8. [arXiv] $Σ$-LeWM: Learning World Models via S-Information for Robot Control
-**一句话点评**：在无解码器的 JEPA/LeWorldModel 式世界模型上引入额外潜变量损失以稳定表示学习，直接涉及 JEPA 与 world model。
-原文：https://arxiv.org/abs/2611.12732v1
+### 8. [arXiv] Evaluating LLM-Generated World Models for Neuro-Symbolic Reasoning
+**一句话点评**：考察五个 LLM 能否将开放式自然语言情境生成为部分可观测随机博弈形式的世界模型，并质疑“机械有效性”是否足以保证忠实表示，属 world model 方向。
+原文：https://arxiv.org/abs/2611.14419v1
 
-### 9. [arXiv] How Many Exposures Does a World Model Need? Learning Unseen Game Mechanics at Test Time
-**一句话点评**：在 ARC-AGI-3 上量化世界模型学习新机制所需曝光次数，提出 MechEval，属 world model 能力评估。
-原文：https://arxiv.org/abs/2611.12324v1
+### 9. [arXiv] A Theory of Policy Optimization in Post-Training: Coverage Collapse and Reference Resets
+**一句话点评**：从理论上刻画后训练策略优化，提出 coverage-preserving 算法框架，指出 REINFORCE/PPO/GRPO 可能导致“覆盖坍塌”，属 LLM 后训练技巧的理论进展。
+原文：https://arxiv.org/abs/2611.14467v1
 
-### 10. [arXiv] Learning to Act with World Models by Valuing What Comes Next
-**一句话点评**：WM-PPO 用世界模型预测状态转移并估计成功概率以缓解稀疏终端奖励，属 world model + RL 方法。
-原文：https://arxiv.org/abs/2611.12200v1
+### 10. [arXiv] AutoScaffold: AI-Guided Scaffolding for Reinforcement Learning of Language Models
+**一句话点评**：将 RLVR 中被压缩为单一结果奖励的训练经验转化为自适应训练脚手架，减少人工领域定制，属 LLM 训练技巧。
+原文：https://arxiv.org/abs/2611.14515v1
 
-### 11. [arXiv] Is Persona Generalization Predictable?
-**一句话点评**：发现微调引发的 persona 泛化在域内外呈近似 probit 线性关系且跨模型族共享，属 LLM 行为/后训练研究。
-原文：https://arxiv.org/abs/2611.12864v1
+### 11. [arXiv] Contrastive Discovery: Open-Ended Scientific Discovery over Competing Explanations
+**一句话点评**：用“对比集”（互斥且完备的竞争解释）替代单假设逐点检验，使 LLM 科学发现 Agent 在否定假设后能定位证据支持的替代解释，属 Agent 框架方法创新。
+原文：https://arxiv.org/abs/2611.14514v1
 
-### 12. [arXiv] Agentic-OPD: Recovering Forgotten Agent Capabilities via On-Policy Distillation for Agentic Tasks
-**一句话点评**：指出 GRPO 训练中丢弃的 checkpoint 可组成免费教师池，用 on-policy distillation 恢复已遗忘的 agent 能力，属 LLM 后训练技巧。
-原文：https://arxiv.org/abs/2611.12799v1
+### 12. [arXiv] When Should Agents Remember? Falsification-Gated Self-Evolution for LLM Agents
+**一句话点评**：以验证器为锚、将经验教训表示为带前置条件与预期效果的结构化假设并做证伪门控，决定何时写入持久记忆，属 Agent 自演化框架。
+原文：https://arxiv.org/abs/2611.14326v1
 
-### 13. [arXiv] WorkflowArena: Benchmarking Executable Workflow Orchestration in LLM-Based Multi-Agent Systems
-**一句话点评**：把多智能体系统运行时自行编排可执行工作流的能力形式化为独立能力并给出基准，属 Agent 框架评估。
-原文：https://arxiv.org/abs/2611.12856v1
+### 13. [arXiv] Don't Just Trust Your Memory: Evidence-Linked Memory Reduces Memory-Induced Degradation in LLM Agents
+**一句话点评**：指出外部记忆会导致“记忆诱发退化”，提出将教训与其来源轨迹证据链接的 WikiTrace，属 Agent 记忆机制改进。
+原文：https://arxiv.org/abs/2611.14320v1
 
-### 14. [arXiv] Good Views Are Not Enough: Global Counterexamples for Gaussian-Regularized JEPAs
-**一句话点评**：给出高斯正则化 JEPA 全局最优解的反例，说明好视图不足以保证场景不变性与唯一性，属 JEPA 理论分析。
-原文：https://arxiv.org/abs/2611.12137v1
+### 14. [arXiv] Accurate predictions of properties of energetic materials with tabular foundation models
+**一句话点评**：用 TabPFN 表格基础模型在无调参下预测含能材料的撞击感度、分解温度与晶体密度，全面超越已发表最优模型，属小分子性质预测/ADMET 邻近方向。
+原文：https://arxiv.org/abs/2611.14462v1
 
-### 15. [arXiv] Mitigating Agentic Deception via Evaluation-Side Partially Observable Games
-**一句话点评**：将 agent 欺骗行为归因于评估侧部分可观测性，并提出基于部分可观测博弈的缓解方法，属 LLM 行为/Agent 安全研究。
-原文：https://arxiv.org/abs/2611.12835v1
+### 15. [arXiv] Normalizing Flows for Classical Simulation of Quantum Circuits in Phase Space
+**一句话点评**：将酉门参数化为相空间概率分布间的 normalizing flow 以做量子线路经典模拟，是 normalizing flow 技术在新领域的应用，与主方向关联较弱但属生成模型技术。
+原文：https://arxiv.org/abs/2611.14006v1
