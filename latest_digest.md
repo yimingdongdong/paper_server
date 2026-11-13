@@ -1,65 +1,45 @@
 # AI x Bio 每日情报
 
-> 生成时间 2026-11-12 07:52，由 DeepSeek 精筛。
+> 生成时间 2026-11-13 07:29，由 DeepSeek 精筛。
 
 ## 今日重点
 
-### 1. [arXiv] Pyrite: Building and Benchmarking Protein-Ligand Pose Ranking Agents
-**一句话点评**：蛋白-配体 pose 排序基准（1500 对 pose），专家化学家接近随机水平，凸显 cofolding 模型生成后排序环节的关键瓶颈，直接命中 docking/虚拟筛选方向。
-原文：https://arxiv.org/abs/2611.14511v1
+### 1. [arXiv] Using an energy pixels approach to estimate the size a 2nd Generation DEL must be to train a high-resolution binding model
+**一句话点评**：从训练数据规模角度分析 DNA 编码库（DEL）需要多大才能训练出能分辨单原子亲和力变化的高分辨率 binding 模型，直接关联小分子药物设计与 binding affinity 预测。
+原文：https://arxiv.org/abs/2611.17121v1
 
-### 2. [arXiv] Emergent Biological Capabilities in a Foundation Model for Molecular Interactions
-**一句话点评**：Bonbon 在 3.2T token 的蛋白-配体配对序列上训练，零样本涌现出作用机制、结合位点定位（含正/别构区分）、共价/非共价判别等能力，是分子相互作用基础模型的重要进展。
-原文：https://arxiv.org/abs/2611.14504v1
+### 2. [arXiv] Systematic Evaluation of Training Data Generation Strategies for Machine Learning-Based Molecular and Materials Property Prediction
+**一句话点评**：系统比较分子/材料性质预测的训练数据采集策略，探讨如何在最少标注样本下最大化预测性能，对分子生成与 ADMET 类任务的数据构建有直接参考价值。
+原文：https://arxiv.org/abs/2611.16792v1
 
-### 3. [arXiv] ANTIOCH-VS: From Sequence to Hits with Modular, Open-Source Ensemble Virtual Screening
-**一句话点评**：从蛋白序列到候选 binder 排序的端到端开源虚拟筛选流程，结合 ColabFold 构象系综与 AF2-RAVE 短 MD 采样，解决 apo/单模型缺失结合构象的痛点。
-原文：https://arxiv.org/abs/2611.14287v1
+### 3. [arXiv] Protein Language Models Fail To Capture Contact Predictions Under Invariant Relabeling
+**一句话点评**：通过氨基酸字母表的全局双射重标记诊断框架，揭示 pLM 的 contact map 预测并非真正学到不变的共进化统计，对蛋白质语言模型的机理理解有警示意义。
+原文：https://arxiv.org/abs/2611.16881v1
 
-### 4. [arXiv] Forward-Value Discretization: Faster Stochastic Diffusion Sampling Without High-Order Approximation
-**一句话点评**：证明随机扩散采样器即使高阶近似仍为一阶收敛（给出上下界），并提出前向值离散化加速，是 diffusion 采样理论+实践的双重贡献。
-原文：https://arxiv.org/abs/2611.14328v1
+### 4. [arXiv] AI for Biologists: The Knowledge Boundaries of Foundation Models in the Age of Agentic Systems
+**一句话点评**：讨论生物基础模型（蛋白结构、突变效应、单细胞扰动预测）与 agentic 系统结合时的“知识边界”问题，涉及虚拟细胞与蛋白质基础模型的可靠性评估。
+原文：https://arxiv.org/abs/2611.17015v1
 
-### 5. [arXiv] An Energy-Based Perspective on Machine Learning
-**一句话点评**：Bo Dai 与 Yilun Du 的 EBM 教程，用能量、推断、学习三要素统一串联生成模型与表示学习，对理解 diffusion/score-based 的理论根基有参考价值。
-原文：https://arxiv.org/abs/2611.14383v1
+### 5. [Nature] Independent interferometric observable confirms black hole shadow in M87*
+**一句话点评**：虽是天体物理应用，但其核心是 diffusion-based reconstruction 用于 VLBI 成像，属于 diffusion 生成模型在科学成像中的方法学迭代，可作为技术迁移参考。
+原文：https://www.nature.com/articles/s41586-026-11241-9
 
-### 6. [arXiv] Normalizing Flows for Classical Simulation of Quantum Circuits in Phase Space
-**一句话点评**：将酉门参数化为相空间分布间的 normalizing flow，属于 normalizing flow 技术在新领域的迭代应用，方法层面可迁移。
-原文：https://arxiv.org/abs/2611.14006v1
+### 6. [arXiv] Goal Encoding in LLMs
+**一句话点评**：定位 LLM 内部对“下一子目标”的稀疏注意力头编码，属于 LLM 行为/可解释性研究，对 reasoning model 的内部机制理解有信息量。
+原文：https://arxiv.org/abs/2611.17297v1
 
-### 7. [arXiv] BioXArena-Pro: a research-grade benchmark for autonomous biomedical machine learning agents
-**一句话点评**：64 个研究级生物医学建模任务、22 种 agent 配置，最佳仅 55.1 分且 scaffold 影响几乎与模型相当，是生物医学 Agent 能力评估的重要基准。
-原文：https://arxiv.org/abs/2611.13994v1
+### 7. [arXiv] From Delegation to Coordination: Learning Efficient Multi-Agent Deep Research
+**一句话点评**：提出 LEAD-RL 联合优化主 agent 与子 agent 的委派与执行，针对多智能体框架中奖励错配问题，属 Agent/多智能体方向的可读工作。
+原文：https://arxiv.org/abs/2611.17041v1
 
-### 8. [arXiv] A Theory of Policy Optimization in Post-Training: Coverage Collapse and Reference Resets
-**一句话点评**：从理论上刻画 RL 后训练中的 coverage collapse 现象，指出 REINFORCE/PPO/GRPO 可能压低最优响应概率，并提出 coverage-preserving 算法框架，对 LLM 后训练有直接指导意义。
-原文：https://arxiv.org/abs/2611.14467v1
+### 8. [arXiv] Actor, Judge, or Teacher? Understanding Decision Models in Long-Horizon Agents
+**一句话点评**：系统比较决策模型作为 actor/judge/teacher 三种角色的表现，探讨“行动差但教学好”的可能性，对 Agent 训练与 RL 策略有参考价值。
+原文：https://arxiv.org/abs/2611.17167v1
 
-### 9. [arXiv] AutoScaffold: AI-Guided Scaffolding for Reinforcement Learning of Language Models
-**一句话点评**：把 RLVR 中被压缩成单一标量的训练经验转化为自适应 scaffold，减少人工设计 hint/strategy 的依赖，属于 LLM 训练技巧方向的可复用思路。
-原文：https://arxiv.org/abs/2611.14515v1
+### 9. [arXiv] Negative-Only Policy Optimization for One-Sided Verifiable Rewards
+**一句话点评**：针对只有可靠负例验证的 RLVR 场景提出新优化方法，属 LLM 后训练/RL 技巧，对 reasoning model 训练有方法学意义。
+原文：https://arxiv.org/abs/2611.17287v1
 
-### 10. [arXiv] Evaluating LLM-Generated World Models for Neuro-Symbolic Reasoning
-**一句话点评**：检验五个 LLM 能否把自然语言情境生成为部分可观测随机博弈形式的世界模型，并质疑“机械有效性”是否等于“忠实表征”，切中 world model 评估核心问题。
-原文：https://arxiv.org/abs/2611.14419v1
-
-### 11. [arXiv] Contrastive Discovery: Open-Ended Scientific Discovery over Competing Explanations
-**一句话点评**：用互斥完备的对比假设集替代单假设检验，让 LLM agent 在证据拒绝某解释时能定位到支持哪个替代解释，是科学发现 Agent 的方法改进。
-原文：https://arxiv.org/abs/2611.14514v1
-
-### 12. [arXiv] Blurring the Block Boundaries: Overlapping Block Denoising for Efficient Diffusion Language Models
-**一句话点评**：块扩散语言模型中并行精炼相邻两块以突破“最慢 token”瓶颈，属于 diffusion 在语言建模上的效率迭代。
-原文：https://arxiv.org/abs/2611.14387v1
-
-### 13. [arXiv] Accurate predictions of properties of energetic materials with tabular foundation models
-**一句话点评**：TabPFN 在含能材料的三项分子性质预测上无需调参即超越已发表最优模型与 Chemprop 表示，对小分子性质预测/ADMET 类任务有方法借鉴价值。
-原文：https://arxiv.org/abs/2611.14462v1
-
-### 14. [arXiv] Don't Just Trust Your Memory: Evidence-Linked Memory Reduces Memory-Induced Degradation in LLM Agents
-**一句话点评**：指出 agent 外部记忆会导致“记忆诱发退化”，提出带证据链接的 WikiTrace 让 agent 可核查经验来源，是 Agent 记忆机制的重要反思。
-原文：https://arxiv.org/abs/2611.14320v1
-
-### 15. [arXiv] When Should Agents Remember? Falsification-Gated Self-Evolution for LLM Agents
-**一句话点评**：用可验证的证伪门控决定经验是否写入持久记忆，与上一条互补，共同回应 Agent 自演化中“局部成功≠可复用知识”的问题。
-原文：https://arxiv.org/abs/2611.14326v1
+### 10. [arXiv] Symmetry in Time: A Representation Theory of Linear Recurrent Memory
+**一句话点评**：用表示论形式化线性递归/SSM 的状态追踪失败并给出修正，属序列建模范式的理论迭代，与生成模型架构演进相关。
+原文：https://arxiv.org/abs/2611.17162v1
