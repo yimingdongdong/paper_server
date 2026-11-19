@@ -1,65 +1,65 @@
 # AI x Bio 每日情报
 
-> 生成时间 2026-11-18 08:05，由 DeepSeek 精筛。
+> 生成时间 2026-11-19 08:12，由 DeepSeek 精筛。
 
 ## 今日重点
 
-### 1. [arXiv] Correcting Flows with Marginal Matching
-**一句话点评**：为 flow matching 引入基于训练的 predictor-corrector 框架，利用 ODE 可逆性做边际匹配校正，直接对应生成模型技术迭代方向。
-原文：https://arxiv.org/abs/2611.23134v1
+### 1. [arXiv] Horizontal Flow Matching for Single-Cell Spatiotemporal Dynamics
+**一句话点评**：将 flow matching 引入空间转录组，学习细胞时空动态，并显式处理切片间刚性运动带来的伪对应问题，直接对应虚拟细胞与 flow matching 两个核心方向。
+原文：https://arxiv.org/abs/2611.24764v1
 
-### 2. [arXiv] When Anchors Shift the Target: Advantage-Gated Adaptation for Diffusion Reinforcement Learning
-**一句话点评**：分析 diffusion / flow-matching 模型在 forward-process RL 中的 anchor coupling 问题，提出 advantage-gated 适配，属于生成模型训练技术迭代。
-原文：https://arxiv.org/abs/2611.23038v1
+### 2. [arXiv] Elysium: Simulation-Free Unbalanced Schrödinger Bridges
+**一句话点评**：面向单细胞快照动力学的无模拟非平衡 Schrödinger bridge，建模增殖/凋亡导致的群体变化，是细胞状态建模与生成模型技术迭代的交汇点。
+原文：https://arxiv.org/abs/2611.24763v1
 
-### 3. [arXiv] Path-Aligned Constraint Equivariance
-**一句话点评**：在 Conditional Flow Matching 框架下处理散度无旋等结构约束，涉及等变/几何约束与 flow matching 的结合。
-原文：https://arxiv.org/abs/2611.22873v1
+### 3. [arXiv] Biases and Limits of AlphaFold Predictions for Non-Globular Proteins
+**一句话点评**：系统梳理 AlphaFold 在非球状蛋白上的偏差与失效场景，对蛋白结构预测的可靠使用边界有直接参考价值。
+原文：https://arxiv.org/abs/2611.24546v1
 
-### 4. [arXiv] Outcome-Balanced PPO and Policy-Induced Flow Rectification for Flow-Based VLA Policies
-**一句话点评**：针对 flow-based 策略的 RL 后训练，提出 policy-induced flow rectification，属于 flow matching 与策略优化交叉的技术迭代。
-原文：https://arxiv.org/abs/2611.22878v1
+### 4. [arXiv] Counterfactual World Models: JEPAs That Reason About "What If"
+**一句话点评**：LeCun 参与，证明仅用事实转移训练的世界模型无法回答反事实问题，并给出基于动力学性质的解法，属于 JEPA/world model 方向的重要理论进展。
+原文：https://arxiv.org/abs/2611.24778v1
 
-### 5. [arXiv] Amortizing Tempered Sampling with Corrected Self-Training
-**一句话点评**：基于 score-based diffusion 的神经采样器与退火重要性采样结合，属于 score-based 生成方法的技术改进。
-原文：https://arxiv.org/abs/2611.23072v1
+### 5. [arXiv] Reconstruction vs. Prediction Pre-Training of Discrete Video Representations for Continuous Control
+**一句话点评**：容量匹配的受控实验，对比自编码与 V-JEPA 目标对下游动力学表征的影响，对 JEPA 类预训练目标选择有直接信息量。
+原文：https://arxiv.org/abs/2611.24781v1
 
-### 6. [arXiv] High-Dimensional Black-Box Optimization via Guidance Sampling of Diffusion Models
-**一句话点评**：用 diffusion guidance 做高维黑盒优化，属于 diffusion 在优化场景的方法迭代。
-原文：https://arxiv.org/abs/2611.22965v1
+### 6. [arXiv] Clover-35B-A3B-Preview Technical Report
+**一句话点评**：MoE 扩散语言模型，将 Gated Delta Networks 与 block diffusion 结合并支持 thinking-mode，是 diffusion LM 架构迭代的新样本。
+原文：https://arxiv.org/abs/2611.24636v1
 
-### 7. [arXiv] Ambient LLMs: Data-Efficient Supervised Fine-tuning via Temperature Matching
-**一句话点评**：用冻结预训练模型作噪声教师做 SFT 数据增强，缓解过拟合与分布尾部遗忘，属于 LLM 后训练技巧。
-原文：https://arxiv.org/abs/2611.23229v1
+### 7. [arXiv] Diffusion Models are Provably Efficient Priors for Sparse Recovery
+**一句话点评**：为扩散模型作为逆问题先验给出非渐近、计算可行的理论保证，属于 diffusion 理论侧的技术迭代。
+原文：https://arxiv.org/abs/2611.24602v1
 
-### 8. [arXiv] Do LLM Agents Still Need to Be Told How to Self-Improve?
-**一句话点评**：研究 LLM agent 自主构建自学习算法，属于 Agent 与自我改进框架方向。
-原文：https://arxiv.org/abs/2611.23219v1
+### 8. [arXiv] Choosing the Right Representations: Task-Aware Fusion for Multimodal Materials Language Models
+**一句话点评**：材料科学多模态 LLM 中按目标性质自适应融合多个结构编码器，涉及 3D 结构表示与 LLM 桥接，与分子/材料表示学习相关。
+原文：https://arxiv.org/abs/2611.24641v1
 
-### 9. [arXiv] Get Hint-Augmented GRPO Done Right Through Activation Steering
-**一句话点评**：用 activation steering 改进 hint-augmented GRPO，解决零奖励无梯度问题，属于 LLM 后训练/reasoning 技巧。
-原文：https://arxiv.org/abs/2611.23124v1
+### 9. [arXiv] General progress substitutes for specific training data in language models
+**一句话点评**：以分子字符串等任务为实验对象，研究通用能力进步对 withheld 数据的替代效应，对分子生成模型的数据策略有间接启示。
+原文：https://arxiv.org/abs/2611.24844v1
 
-### 10. [arXiv] The Resolution Hypothesis: Agent Evolution's Key Is Identifying Improvements
-**一句话点评**：系统研究 agent 进化中“识别改进”比“提出改进”更关键，属于 Agent 框架与多智能体方向。
-原文：https://arxiv.org/abs/2611.23068v1
+### 10. [arXiv] Risk-Triggered Search: Behavior-Preserving Safe Control
+**一句话点评**：在冻结的 JEPA 世界模型上做风险触发的规划搜索，属于 world model 用于安全控制的方法迭代。
+原文：https://arxiv.org/abs/2611.24409v1
 
-### 11. [arXiv] Large-scale Neuron Community Discovery Reveals Neuron-Sparse Behaviors in Language Models
-**一句话点评**：无监督发现跨 prompt 复用的神经元社区并验证因果必要性，属于 LLM 行为/机制研究。
-原文：https://arxiv.org/abs/2611.23112v1
+### 11. [arXiv] WorldRuler: Interactive World Modeling under Configurable Rules
+**一句话点评**：可配置规则下的交互式世界模型，聚焦规则-状态持久化与规则到视觉的实现，属于 world model 方向。
+原文：https://arxiv.org/abs/2611.24869v1
 
-### 12. [arXiv] Learning Stratified Policies for Inference-Time Objectives
-**一句话点评**：用多个 LoRA 策略组成分层策略群分配推理时采样预算，属于 LLM 推理时扩展技巧。
-原文：https://arxiv.org/abs/2611.23154v1
+### 12. [arXiv] Agentic Harness Engineering Beta: Requirement-Centered Evolution of Agent Harnesses
+**一句话点评**：以需求为中心演化 agent harness，针对现有 harness 演化易陷入 benchmark 局部最优的问题，属于 Agent 框架方向。
+原文：https://arxiv.org/abs/2611.24924v1
 
-### 13. [arXiv] RSI-Prime: Training Models to Train Models
-**一句话点评**：构建 LLM 自主训练目标模型的轨迹数据集，属于递归自我改进与训练技巧方向。
-原文：https://arxiv.org/abs/2611.23138v1
+### 13. [arXiv] Depth Before Breadth: Reverse-to-Forward Curriculum with Advantage Decomposition for LLM Agent
+**一句话点评**：用策略诱导能力区域做课程与优势分解，缓解长程 agent 稀疏奖励下的信用分配问题，属于 LLM agent 训练技巧。
+原文：https://arxiv.org/abs/2611.24697v1
 
-### 14. [arXiv] Structure–Residual Inductive Biases for Language Model Pretraining
-**一句话点评**：提出结构-残差归纳偏置用于 LM 预训练表示学习，属于 LLM 训练技巧。
-原文：https://arxiv.org/abs/2611.23197v1
+### 14. [arXiv] CurvDelta: Low-Curvature Delta Modeling For Surgical Learning and Unlearning
+**一句话点评**：将能力保持约束嵌入参数化，构造低曲率更新空间，属于 LLM 后训练/遗忘的可控适配技巧。
+原文：https://arxiv.org/abs/2611.24654v1
 
-### 15. [arXiv] Structured AI ideation yields physical strategies for epithelial barrier repair
-**一句话点评**：AI 系统生成跨学科研究假设并落到上皮屏障修复策略，属于 AI 辅助生物假设生成（弱相关，仅因涉及生物发现流程保留）。
-原文：https://arxiv.org/abs/2611.22988v1
+### 15. [arXiv] Transferring an analysis of human brain organization to language models
+**一句话点评**：把皮层组织分析的 diffusion-map 嵌入迁移到推理训练模型，发现局部层级变化并可嫁接权重提升数学推理，属于 LLM 行为/表征研究。
+原文：https://arxiv.org/abs/2611.24626v1
