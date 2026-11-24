@@ -1,65 +1,65 @@
 # AI x Bio 每日情报
 
-> 生成时间 2026-11-23 08:26，由 DeepSeek 精筛。
+> 生成时间 2026-11-24 10:34，由 DeepSeek 精筛。
 
 ## 今日重点
 
 ### 1. [Nature Computational Science] Generative molecular design needs oracle grounding
-**一句话点评**：生成式分子设计领域的重要观点文章，指出 oracle（计算代理目标）容易被模型“钻空子”，主张用实验反馈诊断并修正 oracle 失效，对分子生成与虚拟筛选的评估范式有直接指导意义。
+**一句话点评**：生成式分子设计领域的一篇观点文章，指出 oracle（计算代理目标）容易被生成模型“钻空子”，主张用实验反馈来诊断和修正 oracle 失效，这对分子生成与虚拟筛选的评估范式有直接指导意义。
 原文：https://www.nature.com/articles/s43588-026-01082-x
 
-### 2. [arXiv] BioEmu2: Scalable Emulation of Biomolecular Dynamics
-**一句话点评**：BioEmu 的升级版生成模型，统一静态结构预测、平衡采样与时间演化，支持蛋白/核酸/修饰残基/配体/离子多组分体系，采样速度比 MD 快数个量级，是蛋白质构象生成与生物分子动力学建模的重要进展。
-原文：https://arxiv.org/abs/2611.27924v1
+### 2. [Nature Computational Science] Richer data improve predictions of T cell receptor binding to specific antigens
+**一句话点评**：发布 Hi-TPH 大规模层级 TCR–抗原结合数据集，基于该数据训练的蛋白质语言模型在外部队列上超越现有工具，属于蛋白语言模型 + binding 预测方向的实质性数据/方法工作。
+原文：https://www.nature.com/articles/s43588-026-01109-3
 
-### 3. [arXiv] Late-Time Dynamics of Flow Matching: Distance Geometry and Learning
-**一句话点评**：从距离几何角度分析 flow matching 在有限训练集下的晚期动力学与样本概率分配，为理解 flow matching 的收敛与记忆行为提供理论刻画，属于生成模型技术迭代方向。
-原文：https://arxiv.org/abs/2611.27653v1
+### 3. [arXiv] LeCellModel: Interpretable Density Estimation over the Gene Expression Manifold
+**一句话点评**：把单细胞表示学习的目标从“捕获细胞类型”转为“建模基因表达流形上的细胞状态分布”，统一了密度估计、稀有状态检测、扰动打分与基因归因，契合虚拟细胞/单细胞扰动建模方向。
+原文：https://arxiv.org/abs/2611.30955v1
 
-### 4. [arXiv] Non-penetrating World Models
-**一句话点评**：研究交互式视频 world model 中的物体穿透问题，发现 DiT 隐状态已编码穿透预测信息并据此改进，属于 world model 方向且有生成模型机制分析。
-原文：https://arxiv.org/abs/2611.27963v1
+### 4. [arXiv] Reinforcing Diffusion Models by Instantaneous Trajectory Distribution Matching
+**一句话点评**：揭示现有前向扩散 RL 方法本质上是带符号的 reward-weighted regression，并指出 CFG rollout 下策略速度与行为边际速度不一致的问题，属于 diffusion 对齐/训练技术迭代。
+原文：https://arxiv.org/abs/2611.30986v1
 
-### 5. [arXiv] Beyond Visual Fidelity: Comparing Categorical and Continuous World Models
-**一句话点评**：系统比较离散 token 与连续（含 flow matching 整帧生成）world model 的动力学保真度，对 world model 与 flow matching 的取舍有参考价值。
-原文：https://arxiv.org/abs/2611.27870v1
+### 5. [arXiv] Analyzing and Improving FlowMap Distillation of Autoregressive Video Models
+**一句话点评**：分析 AR 视频生成中 FlowMap 蒸馏的瓶颈，提出 anti-drifting guidance 等两种引导机制，是 flow matching 蒸馏技术的直接迭代（虽为视频域，方法可迁移）。
+原文：https://arxiv.org/abs/2611.31164v1
 
-### 6. [arXiv] PhiJEPA: Denoising Latent Predictions for Visual Representation Learning
-**一句话点评**：JEPA 路线的改进工作，将两阶段预测适配到 masked Transformer 并加入去噪，属于 JEPA/表示学习方向。
-原文：https://arxiv.org/abs/2611.27516v1
+### 6. [arXiv] DyLoMo-DiT: Dynamic Looped Mixture-of-Experts Diffusion Transformers
+**一句话点评**：通过权重共享循环 + 稀疏专家复用参数来加深 DiT，属于 diffusion transformer 架构层面的效率/容量技术迭代。
+原文：https://arxiv.org/abs/2611.30844v1
 
-### 7. [arXiv] Graph Signal Generation via Graph-Aware Diffusion Models
-**一句话点评**：提出图感知扩散（前向过程为图上的热扩散），属于扩散模型与图/几何结构结合的方法迭代，可迁移到分子图生成。
-原文：https://arxiv.org/abs/2611.27826v1
+### 7. [arXiv] LeJEPA Features Are Not Isotropic, and Should Not Be
+**一句话点评**：证明 LeJEPA 的 SIGReg 各向同性正则实际无法达成目标，并论证自监督编码器本就不该有各向同性特征，对 JEPA 类表示学习有直接的方法论修正价值。
+原文：https://arxiv.org/abs/2611.31216v1
 
-### 8. [arXiv] Sampling non-abelian lattice gauge theories with diffusion models
-**一句话点评**：使用规范等变扩散模型（L-CNN + MAALA）采样格点规范场，是等变网络与扩散模型结合的科学采样应用，方法层面与几何深度学习相关。
-原文：https://arxiv.org/abs/2611.27821v1
+### 8. [arXiv] Lorentz symmetry in self-supervised representation learning
+**一句话点评**：将洛伦兹等变几何代数 Transformer（L-GATr-slim）与 LeJEPA 框架结合，是等变网络 + 自监督表示学习的技术融合，几何深度学习方向可参考。
+原文：https://arxiv.org/abs/2611.31011v1
 
-### 9. [Nature Machine Intelligence] Enabling lab autonomy with reward functions and executable workflows
-**一句话点评**：讨论自驱动实验室中 LLM 假设生成需配合自底向上的优化与可执行工作流，属于 Agent/自动化科研框架方向。
-原文：https://www.nature.com/articles/s42256-026-01339-0
+### 9. [arXiv] World Models as Native Latent Action Models
+**一句话点评**：把预训练视频 world model 直接当作 latent action model 使用，从稠密纠缠表示中提取动力学，属于 world model 方向有信息量的思路。
+原文：https://arxiv.org/abs/2611.30898v1
 
-### 10. [Nature Computational Science] System of agentic AI for the discovery of metal–organic frameworks
-**一句话点评**：MOFGen 多智能体系统加速可合成 MOF 发现，是 agentic AI 用于材料/分子发现的代表性工作，方法可类比到分子设计。
-原文：https://www.nature.com/articles/s43588-026-01058-x
+### 10. [arXiv] DexLatentWorld: 3D Cross-Embodiment Latent Action World Models for Zero-Shot Robotic Manipulation
+**一句话点评**：从点云演示中学习连续 latent action 的 3D world model，支持跨具身零样本操作，属 world model + 表示学习方向。
+原文：https://arxiv.org/abs/2611.30907v1
 
-### 11. [arXiv] Potential emergence in LLM agents: a statistical physics perspective
-**一句话点评**：从统计物理视角用 agent 状态与配分函数刻画 LLM agent 推理中的势函数涌现，属于 LLM agent 行为研究。
-原文：https://arxiv.org/abs/2611.27618v1
+### 11. [arXiv] From Local Errors to System Failures: Modeling and Benchmarking Error Propagation in Multi-Agent LLM Systems
+**一句话点评**：提出 REPA 结构模型，把局部响应与系统级误差传播联系起来，是多智能体框架可靠性分析中较扎实的一项工作。
+原文：https://arxiv.org/abs/2611.31063v1
 
-### 12. [arXiv] Beyond Self-Critique: Epistemic Convergence Control for Multi-Agent Research Verification
-**一句话点评**：针对同源多智能体辩论的自 critique 偏差，提出非对称角色与收敛控制，属于多智能体框架方向。
-原文：https://arxiv.org/abs/2611.27839v1
+### 12. [arXiv] Can Latent Reasoning Drive LLM Outputs Without a Trace?
+**一句话点评**：探讨完全隐式推理（CLR）能否支撑隐藏目标而不留 CoT 痕迹，触及 LLM 可监控性与对齐行为研究，属 LLM 行为方向。
+原文：https://arxiv.org/abs/2611.31015v1
 
-### 13. [arXiv] Open CDLM: A Benchmark and Library for Continuous Diffusion Language Models
-**一句话点评**：连续扩散语言模型的基准与库，指出似然上界与生成困惑度评估的缺陷，属于 diffusion 技术迭代。
-原文：https://arxiv.org/abs/2611.27536v1
+### 13. [arXiv] Language Models Steer on Injected Uncertainty Tokens, but Fail to Self-Monitor In Situ
+**一句话点评**：系统评估不确定性 token 的“原地自监控”与“下游纠错引导”两种能力，发现模型能被引导却无法真实自省，对 reasoning model 的置信度机制有参考价值。
+原文：https://arxiv.org/abs/2611.31228v1
 
-### 14. [arXiv] MemOnce: A Scalable Memory Architecture for Large Language Models
-**一句话点评**：面向长程持续交互的可扩展记忆状态架构，属于 LLM 架构/训练技巧方向。
-原文：https://arxiv.org/abs/2611.27973v1
+### 14. [arXiv] Beyond Self-Consistency: Recursive Self-Improvement at Test Time
+**一句话点评**：指出自一致性投票会强化错误多数，提出利用历史推理进行递归自改进的测试时方法，属 LLM 推理/后训练技巧。
+原文：https://arxiv.org/abs/2611.30965v1
 
-### 15. [arXiv] Model Carving: Training Transformers That Optimize Their Own Topology
-**一句话点评**：让训练过程自身塑造 Transformer 拓扑，属于 LLM 训练技巧/架构搜索方向。
-原文：https://arxiv.org/abs/2611.27962v1
+### 15. [arXiv] Unlocking the Power of Loops in Pretrained LLMs with Loop Residuals
+**一句话点评**：用 LoopRes 让预训练 LLM 的循环层直接关注早期循环输出，把“循环”从边际增益变成稳定收益，属 LLM 训练技巧。
+原文：https://arxiv.org/abs/2611.31094v1
