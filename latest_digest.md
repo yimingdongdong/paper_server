@@ -1,65 +1,65 @@
 # AI x Bio 每日情报
 
-> 生成时间 2026-11-24 10:34，由 DeepSeek 精筛。
+> 生成时间 2026-11-25 09:24，由 DeepSeek 精筛。
 
 ## 今日重点
 
-### 1. [Nature Computational Science] Generative molecular design needs oracle grounding
-**一句话点评**：生成式分子设计领域的一篇观点文章，指出 oracle（计算代理目标）容易被生成模型“钻空子”，主张用实验反馈来诊断和修正 oracle 失效，这对分子生成与虚拟筛选的评估范式有直接指导意义。
-原文：https://www.nature.com/articles/s43588-026-01082-x
+### 1. [Nature] Watch out, AlphaFold: Claude and ChatGPT's new biology skills wow scientists
+**一句话点评**：通用 LLM 已能完成蛋白质设计与序列/结构预测，直接冲击专用生物 AI 工具的边界，值得关注其对蛋白/多肽设计流程的潜在替代与融合。
+原文：https://www.nature.com/articles/d41586-026-03836-z
 
 ### 2. [Nature Computational Science] Richer data improve predictions of T cell receptor binding to specific antigens
-**一句话点评**：发布 Hi-TPH 大规模层级 TCR–抗原结合数据集，基于该数据训练的蛋白质语言模型在外部队列上超越现有工具，属于蛋白语言模型 + binding 预测方向的实质性数据/方法工作。
+**一句话点评**：Hi-TPH 大规模层级 TCR–抗原结合数据集 + 蛋白语言模型，在外部实验基准上超越现有工具，属于 binding affinity / 蛋白语言模型的直接进展。
 原文：https://www.nature.com/articles/s43588-026-01109-3
 
-### 3. [arXiv] LeCellModel: Interpretable Density Estimation over the Gene Expression Manifold
-**一句话点评**：把单细胞表示学习的目标从“捕获细胞类型”转为“建模基因表达流形上的细胞状态分布”，统一了密度估计、稀有状态检测、扰动打分与基因归因，契合虚拟细胞/单细胞扰动建模方向。
-原文：https://arxiv.org/abs/2611.30955v1
+### 3. [Nature Computational Science] Generative molecular design needs oracle grounding
+**一句话点评**：观点文章，指出生成分子设计过度依赖 oracle 代理目标会被模型 exploit，主张用实验闭环校正 oracle，对分子生成/药物设计方法论有直接指导意义。
+原文：https://www.nature.com/articles/s43588-026-01082-x
 
-### 4. [arXiv] Reinforcing Diffusion Models by Instantaneous Trajectory Distribution Matching
-**一句话点评**：揭示现有前向扩散 RL 方法本质上是带符号的 reward-weighted regression，并指出 CFG rollout 下策略速度与行为边际速度不一致的问题，属于 diffusion 对齐/训练技术迭代。
-原文：https://arxiv.org/abs/2611.30986v1
+### 4. [Nature Computational Science] System of agentic AI for the discovery of metal–organic frameworks
+**一句话点评**：MOFGen 多智能体系统加速可合成 MOF 发现，虽非生物分子，但 agentic 生成式材料发现范式可迁移到分子/材料设计流程。
+原文：https://www.nature.com/articles/s43588-026-01058-x
 
-### 5. [arXiv] Analyzing and Improving FlowMap Distillation of Autoregressive Video Models
-**一句话点评**：分析 AR 视频生成中 FlowMap 蒸馏的瓶颈，提出 anti-drifting guidance 等两种引导机制，是 flow matching 蒸馏技术的直接迭代（虽为视频域，方法可迁移）。
-原文：https://arxiv.org/abs/2611.31164v1
+### 5. [Nature Machine Intelligence] Enabling lab autonomy with reward functions and executable workflows
+**一句话点评**：主张 LLM 假设生成需配合自底向上的可执行工作流与奖励函数，才能实现自驱动实验室，与 AI 驱动实验闭环（含药物发现）相关。
+原文：https://www.nature.com/articles/s42256-026-01339-0
 
-### 6. [arXiv] DyLoMo-DiT: Dynamic Looped Mixture-of-Experts Diffusion Transformers
-**一句话点评**：通过权重共享循环 + 稀疏专家复用参数来加深 DiT，属于 diffusion transformer 架构层面的效率/容量技术迭代。
-原文：https://arxiv.org/abs/2611.30844v1
+### 6. [arXiv] Score-Based Diffusion for Hypergraph Signals in the t-Spectral Domain
+**一句话点评**：首个超图信号上的 score-based 生成模型，给出 t-HGSP 谱域扩散的良定义构造与精确 score 目标，属于 diffusion/score-based 技术迭代，可迁移到图/几何结构数据。
+原文：https://arxiv.org/abs/2611.33026v1
 
-### 7. [arXiv] LeJEPA Features Are Not Isotropic, and Should Not Be
-**一句话点评**：证明 LeJEPA 的 SIGReg 各向同性正则实际无法达成目标，并论证自监督编码器本就不该有各向同性特征，对 JEPA 类表示学习有直接的方法论修正价值。
-原文：https://arxiv.org/abs/2611.31216v1
+### 7. [arXiv] iWAM: Efficient Action Prediction from World Models without Explicit Future Prediction
+**一句话点评**：提出无需显式未来帧去噪的高效 world-action model 代理，属于 world model 技术迭代，对生成式世界模型效率问题有参考价值。
+原文：https://arxiv.org/abs/2611.33141v1
 
-### 8. [arXiv] Lorentz symmetry in self-supervised representation learning
-**一句话点评**：将洛伦兹等变几何代数 Transformer（L-GATr-slim）与 LeJEPA 框架结合，是等变网络 + 自监督表示学习的技术融合，几何深度学习方向可参考。
-原文：https://arxiv.org/abs/2611.31011v1
+### 8. [arXiv] CoT-Proxy: Cross-Format Transfer for Distilling Long-Horizon Policies
+**一句话点评**：证明长程策略可从教师动作单独蒸馏、无需 chain-of-thought，属于 LLM 后训练/推理蒸馏技巧。
+原文：https://arxiv.org/abs/2611.33148v1
 
-### 9. [arXiv] World Models as Native Latent Action Models
-**一句话点评**：把预训练视频 world model 直接当作 latent action model 使用，从稠密纠缠表示中提取动力学，属于 world model 方向有信息量的思路。
-原文：https://arxiv.org/abs/2611.30898v1
+### 9. [arXiv] Reinforcement Learning Can Be Recovered From Its Own Rollouts
+**一句话点评**：研究 RL 后训练知识是否留存于 rollout 中并给出回放崩溃的解释与补救，属于 LLM 训练技巧。
+原文：https://arxiv.org/abs/2611.33102v1
 
-### 10. [arXiv] DexLatentWorld: 3D Cross-Embodiment Latent Action World Models for Zero-Shot Robotic Manipulation
-**一句话点评**：从点云演示中学习连续 latent action 的 3D world model，支持跨具身零样本操作，属 world model + 表示学习方向。
-原文：https://arxiv.org/abs/2611.30907v1
+### 10. [arXiv] Delegent: A Multi-Agent Harness That Reduces Cost without Sacrificing Performance
+**一句话点评**：前沿模型主导、小模型承接简单子任务的多智能体 harness，直接降低 agent 成本，属于 Agent 框架方向。
+原文：https://arxiv.org/abs/2611.33098v1
 
-### 11. [arXiv] From Local Errors to System Failures: Modeling and Benchmarking Error Propagation in Multi-Agent LLM Systems
-**一句话点评**：提出 REPA 结构模型，把局部响应与系统级误差传播联系起来，是多智能体框架可靠性分析中较扎实的一项工作。
-原文：https://arxiv.org/abs/2611.31063v1
+### 11. [arXiv] Interactive Neural Computers
+**一句话点评**：把桌面界面当作交互式世界模型来生成下一屏，属于 world model 的新应用形态。
+原文：https://arxiv.org/abs/2611.32811v1
 
-### 12. [arXiv] Can Latent Reasoning Drive LLM Outputs Without a Trace?
-**一句话点评**：探讨完全隐式推理（CLR）能否支撑隐藏目标而不留 CoT 痕迹，触及 LLM 可监控性与对齐行为研究，属 LLM 行为方向。
-原文：https://arxiv.org/abs/2611.31015v1
+### 12. [arXiv] Learning World Models through Contrastive Identification of Actions
+**一句话点评**：用对比式动作辨识替代平方误差逆动力学监督，改进潜空间世界模型表示，属于 world model / 表示学习。
+原文：https://arxiv.org/abs/2611.32776v1
 
-### 13. [arXiv] Language Models Steer on Injected Uncertainty Tokens, but Fail to Self-Monitor In Situ
-**一句话点评**：系统评估不确定性 token 的“原地自监控”与“下游纠错引导”两种能力，发现模型能被引导却无法真实自省，对 reasoning model 的置信度机制有参考价值。
-原文：https://arxiv.org/abs/2611.31228v1
+### 13. [arXiv] Simulator-as-Proxy World Model for Robot Manipulation
+**一句话点评**：以显式状态模拟器为代理、视频模型渲染，检验“视频世界模型是否忠实反映代理”的假设，属 world model 方法学。
+原文：https://arxiv.org/abs/2611.32786v1
 
-### 14. [arXiv] Beyond Self-Consistency: Recursive Self-Improvement at Test Time
-**一句话点评**：指出自一致性投票会强化错误多数，提出利用历史推理进行递归自改进的测试时方法，属 LLM 推理/后训练技巧。
-原文：https://arxiv.org/abs/2611.30965v1
+### 14. [arXiv] Motion Conditioned World Modeling for Embodied Visual Tracking
+**一句话点评**：将目标运动分布与机器人自运动注入潜状态转移的世界模型，属 world model 技术迭代。
+原文：https://arxiv.org/abs/2611.32900v1
 
-### 15. [arXiv] Unlocking the Power of Loops in Pretrained LLMs with Loop Residuals
-**一句话点评**：用 LoopRes 让预训练 LLM 的循环层直接关注早期循环输出，把“循环”从边际增益变成稳定收益，属 LLM 训练技巧。
-原文：https://arxiv.org/abs/2611.31094v1
+### 15. [arXiv] U-Statistics-Powered LLM Reasoning
+**一句话点评**：用 U 统计量把 GRPO 组大小选择转化为方差比估计问题，属 reasoning model 训练技巧。
+原文：https://arxiv.org/abs/2611.33064v1
